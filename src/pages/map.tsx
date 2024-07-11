@@ -1,11 +1,11 @@
-
+import WorldMap from '@/components/map/WorldMap'
 
 export default function Map() {
     return (
         <>
         <div>Map component</div>
         <div className="flex justify-center items-center">
-
+            <WorldMap />
         </div>
         </>
     );
