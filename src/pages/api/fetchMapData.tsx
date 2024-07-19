@@ -12,10 +12,9 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
         
         let countryData:CountryData = {};
         const groupsLen = countryCodeGroups.length;
-        for(let i:number=0; i < groupsLen; i++) {
 
-        // In order to wait that all data is fetched concurrently create an array of promises by mapping to async functions 
-        // and wait for all of them to be resolved
+        // Can't fetch data concurrently because api limits requests to one at a time
+        for(let i:number=0; i < groupsLen; i++) {
             const group = countryCodeGroups[i];
             const codesString = group.toString();
             const url = `${dataEndpoint}series_id=${indicator}&country_code=${codesString}&api_key=${nasdaqApiKey}`;
@@ -30,7 +29,6 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse) {
                 }
             });
         }
-        console.log(countryData);
         res.status(200).json(countryData);
     } catch(error) {
         res.status(500).json({error:'Failed to load data'});
