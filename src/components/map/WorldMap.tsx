@@ -9,16 +9,17 @@ import { CountryDataArray, CountryData, TooltipProps, TooltipContent } from "@/u
 
 const nasdaqApiKey = process.env.NEXT_PUBLIC_NASDAQ_API_KEY;
 const dataEndpoint = process.env.NEXT_PUBLIC_NASDAQ_DATA_ENDPOINT;
-const indicator = 'SH.STA.BASS.ZS';
 
 
 
-export default function WorldMap({ tooltipContent,setTooltipContent }:TooltipProps) {
+
+export default function WorldMap({ tooltipContent,setTooltipContent, selectedIndicator }:TooltipProps) {
     const [countryName,setCountryName] = useState('');
     const [data,setData] = useState<CountryData>();
     const [colorScale,setColorScale] = useState<ScaleLinear<string,string,never>>();
     const [loading,setLoading] = useState(false);
     const [error,setError] = useState('');
+    const indicator = selectedIndicator![1];
 
     // Fetching data from Next Api to maintain same origin and avoid CORS errors due to browser security measures
     const fetchData = async (indicator:string) => {
@@ -53,7 +54,7 @@ export default function WorldMap({ tooltipContent,setTooltipContent }:TooltipPro
         console.log('fetching data');
         fetchData(indicator);
         console.log('Color Scale: '+ colorScale)     
-    },[])
+    },[indicator])
 
     
 
@@ -62,34 +63,34 @@ export default function WorldMap({ tooltipContent,setTooltipContent }:TooltipPro
     
     return (
         <>
-        <div className="w-10/12 h-10/12 truncate translate-y-8">
-        <ComposableMap>
-            <Geographies geography={topoJson}>
-                { // "Function as children / render prop" pattern
-                    ({ geographies }) => 
-                        geographies.map((geo) =>  (
-                            
-                            <Geography 
-                                key={geo.rsmKey} 
-                                geography={geo}
-                                fill={data && data[geo.id] && colorScale ? colorScale(data[geo.id][4]) : '#FFFFFF'}
-                                stroke='#000000'
-                                // Some data doesn't have an id, for example glaciers
-                                onMouseEnter={ () => {
-                                    if(data && data[geo.id]) {
-                                        setTooltipContent!({
-                                            country:data[geo.id][2],
-                                            value:data[geo.id][4],
-                                            year:data[geo.id][3]
-                                        })
-                                    }}}
-                                onMouseLeave={() => setTooltipContent!(undefined)}   
-                            />
+        <div className="flex justify-center items-center w-9/12 h-9/12 -translate-y-10">
+                <ComposableMap>
+                    <Geographies geography={topoJson}>
+                        { // "Function as children / render prop" pattern
+                            ({ geographies }) => 
+                                geographies.map((geo) =>  (
+                                    
+                                    <Geography 
+                                        key={geo.rsmKey} 
+                                        geography={geo}
+                                        fill={data && data[geo.id] && colorScale ? colorScale(data[geo.id][4]) : '#FFFFFF'}
+                                        stroke='#000000'
+                                        // Some data doesn't have an id, for example glaciers
+                                        onMouseEnter={ () => {
+                                            if(data && data[geo.id]) {
+                                                setTooltipContent!({
+                                                    country:data[geo.id][2],
+                                                    value:data[geo.id][4],
+                                                    year:data[geo.id][3]
+                                                })
+                                            }}}
+                                        onMouseLeave={() => setTooltipContent!(undefined)}   
+                                    />
 
-                        ))
-                }
-            </Geographies>
-        </ComposableMap>
+                                ))
+                        }
+                    </Geographies>
+                </ComposableMap>
         </div>
         </>
     );

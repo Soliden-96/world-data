@@ -1,0 +1,71 @@
+{
+    "Spatial and Population": {
+        "Surface area (sq. km)": "AG.SRF.TOTL.K2",
+        "Population, total": "SP.POP.TOTL",
+        "Population density (people per sq. km of land area)": "EN.POP.DNST",
+        "Population growth (annual %)": "SP.POP.GROW",
+        "Urban population (% of total population)": "SP.URB.TOTL.IN.ZS"  
+    },
+    "Economy":{
+        "GDP (current US$)": "NY.GDP.MKTP.CD",
+        "GDP growth (annual %)": "NY.GDP.MKTP.KD.ZG",
+        "GDP per capita (current US$)": "NY.GDP.PCAP.CD",
+        "Inflation, consumer prices (annual %)": "FP.CPI.TOTL.ZG",
+        "Tax revenue (% of GDP)": "GC.TAX.TOTL.GD.ZS",
+        "Military expenditure (% of GDP)": "MS.MIL.XPND.GD.ZS",
+        "Exports of goods and services (% of GDP)": "NE.EXP.GNFS.ZS",
+        "Imports of goods and services (% of GDP)": "NE.IMP.GNFS.ZS",
+        "International tourism, expenditures (% of total imports)": "ST.INT.XPND.MP.ZS",
+        "International tourism, expenditures (current US$)": "ST.INT.XPND.CD",
+        "Labor force, total": "SL.TLF.TOTL.IN",
+        "Unemployment, total (% of total labor force) (national estimate)": "SL.UEM.TOTL.NE.ZS",
+        "Unemployment, youth total (% of total labor force ages 15-24) (national estimate)": "SL.UEM.1524.NE.ZS",
+        "Children in employment, total (% of children ages 7-14)": "SL.TLF.0714.ZS"
+    },
+    "Human development":{
+        "Life expectancy at birth, total (years)": "SP.DYN.LE00.IN",
+        "Intentional homicides (per 100,000 people)": "VC.IHR.PSRC.P5",
+        "Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene (per 100,000 population)": "SH.STA.WASH.P5",
+        "Population living in slums (% of urban population)": "EN.POP.SLUM.UR.ZS",
+        "Income share held by highest 10%": "SI.DST.10TH.10",
+        "Income share held by highest 20%": "SI.DST.05TH.20",
+        "Income share held by second 20%": "SI.DST.02ND.20",
+        "Income share held by third 20%": "SI.DST.03RD.20",
+        "Income share held by fourth 20%": "SI.DST.04TH.20",
+        "Poverty headcount ratio at $2.15 a day (2017 PPP) (% of population)": "SI.POV.DDAY",
+        "Poverty headcount ratio at national poverty lines (% of population)": "SI.POV.NAHC"
+    },
+    "Education":{
+        "School enrollment, primary (% net)": "SE.PRM.NENR",
+        "School enrollment, secondary (% net)": "SE.SEC.NENR",
+        "School enrollment, tertiary (% gross)": "SE.TER.ENRR",
+        "Literacy rate, adult total (% of people ages 15 and above)": "SE.ADT.LITR.ZS",
+        "Literacy rate, adult female (% of females ages 15 and above)": "SE.ADT.LITR.FE.ZS",
+        "Government expenditure on education, total (% of GDP)": "SE.XPD.TOTL.GD.ZS",
+        "Government expenditure on education, total (% of government expenditure)": "SE.XPD.TOTL.GB.ZS",
+        "Government expenditure per student, primary (% of GDP per capita)": "SE.XPD.PRIM.PC.ZS"
+    },
+    "Infrastructure":{
+        "Access to electricity (% of population)": "EG.ELC.ACCS.ZS",
+        "Electric power consumption (kWh per capita)": "EG.USE.ELEC.KH.PC",
+        "Energy imports, net (% of energy use)": "EG.IMP.CONS.ZS",
+        "Renewable energy consumption (% of total final energy consumption)": "EG.FEC.RNEW.ZS",
+        "Renewable electricity output (% of total electricity output)": "EG.ELC.RNEW.ZS",
+        "Alternative and nuclear energy (% of total energy use)": "EG.USE.COMM.CL.ZS",
+        "People using at least basic drinking water services (% of population)": "SH.H2O.BASW.ZS",
+        "People using at least basic sanitation services (% of population)": "SH.STA.BASS.ZS",
+        "People using safely managed drinking water services (% of population)": "SH.H2O.SMDW.ZS",
+        "People using safely managed sanitation services (% of population)": "SH.STA.SMSS.ZS",
+        "Renewable internal freshwater resources per capita (cubic meters)": "ER.H2O.INTR.PC",
+        "Railways, goods transported (million ton-km)": "IS.RRS.GOOD.MT.K6",
+        "Research and development expenditure (% of GDP)": "GB.XPD.RSDV.GD.ZS",
+        "Secure Internet servers (per 1 million people)": "IT.NET.SECR.P6"
+    },
+    "Environment/Nature":{
+        "CO2 emissions (metric tons per capita)": "EN.ATM.CO2E.PC",
+        "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)": "EN.ATM.PM25.MC.M3",
+        "Forest area (% of land area)": "AG.LND.FRST.ZS",
+        "Marine protected areas (% of territorial waters)": "ER.MRN.PTMR.ZS",
+        "Terrestrial protected areas (% of total land area)": "ER.LND.PTLD.ZS"
+    }
+}
