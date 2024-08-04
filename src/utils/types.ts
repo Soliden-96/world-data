@@ -34,3 +34,13 @@ export interface IndicatorsInterface {
         [indicator:string]:string
     }
 }
+
+export interface IndicatorSelectorProps {
+    setSelectedIndicator?:React.Dispatch<React.SetStateAction<string[]>>,
+    indicators?:IndicatorsInterface,
+    category?:string,
+    showCategorySubMenu?:string,
+    setShowCategorySubMenu?:React.Dispatch<React.SetStateAction<string>>,
+    setShowSubMenu?:React.Dispatch<React.SetStateAction<boolean>>,
+    indicator?:string
+}

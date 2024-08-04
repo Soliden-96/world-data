@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import Link from "next/link"
 import { ComposableMap, Geographies, Geography } from 'react-simple-maps'
 import { scaleLinear,ScaleLinear, scaleLog } from 'd3-scale'
 import { interpolateRgb } from "d3-interpolate"
@@ -69,7 +70,11 @@ export default function WorldMap({ tooltipContent,setTooltipContent, selectedInd
                         { // "Function as children / render prop" pattern
                             ({ geographies }) => 
                                 geographies.map((geo) =>  (
-                                    
+                                    <Link 
+                                        href={{
+                                            pathname:"/charts/",
+                                        query:{countryId:geo.id}
+                                        }}>
                                     <Geography 
                                         key={geo.rsmKey} 
                                         geography={geo}
@@ -84,9 +89,10 @@ export default function WorldMap({ tooltipContent,setTooltipContent, selectedInd
                                                     year:data[geo.id][3]
                                                 })
                                             }}}
-                                        onMouseLeave={() => setTooltipContent!(undefined)}   
+                                        onMouseLeave={() => setTooltipContent!(undefined)} 
+                                          
                                     />
-
+                                    </Link>
                                 ))
                         }
                     </Geographies>

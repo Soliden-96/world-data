@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useRef } from 'react'
 import WorldMap from '@/components/map/WorldMap'
 import Tooltip from '@/components/map/Tooltip'
-import { TooltipContent, TooltipProps, TooltipPosition, IndicatorsInterface } from '@/utils/types'
+import { TooltipContent, TooltipProps, TooltipPosition, IndicatorsInterface, IndicatorSelectorProps } from '@/utils/types'
 import WorldBankIndicators from '@/../public/topojson/indicators.json'
 
 
@@ -55,7 +55,7 @@ export default function Map() {
     );
 }
 
-function IndicatorSelector({setSelectedIndicator}:any) {
+function IndicatorSelector({setSelectedIndicator}:IndicatorSelectorProps) {
     const [indicators,setIndicators] = useState<IndicatorsInterface>(WorldBankIndicators);
     const [showSubMenu,setShowSubMenu] = useState(false);
     const [showCategorySubMenu,setShowCategorySubMenu] = useState('');
@@ -101,11 +101,13 @@ function IndicatorSelector({setSelectedIndicator}:any) {
     )
 }
 
-function Category({category, indicators, setSelectedIndicator, setShowSubMenu, showCategorySubMenu, setShowCategorySubMenu}:any) {
+function Category({category, indicators, setSelectedIndicator, setShowSubMenu, showCategorySubMenu, setShowCategorySubMenu}:IndicatorSelectorProps) {
     const subMenuRef = useRef<string>('');
 
     function handleMouseEnter() {
-        setShowCategorySubMenu(category);
+        if (category) {
+            setShowCategorySubMenu!(category);
+        }
     }
 
     function handleMouseLeave() {
@@ -113,7 +115,7 @@ function Category({category, indicators, setSelectedIndicator, setShowSubMenu, s
             return
         } else {
             if (showCategorySubMenu===category) {
-                setShowCategorySubMenu('');
+                setShowCategorySubMenu!('');
             }
         }
         
@@ -129,7 +131,7 @@ function Category({category, indicators, setSelectedIndicator, setShowSubMenu, s
                     {category} <span>&#8594;</span>
                 </button>
             
-            {showCategorySubMenu===category && (
+            {(showCategorySubMenu===category && category && indicators) && (
                             <ul onMouseEnter={() => subMenuRef.current=category} onMouseLeave={() => subMenuRef.current=''} className="absolute top-0 left-full min-w-48 bg-slate-50 rounded z-50 shadow-md shadow-slate-500">
                                 {Object.keys(indicators[category]).map((indicator,index) => (
                                     <Indicator 
@@ -150,12 +152,14 @@ function Category({category, indicators, setSelectedIndicator, setShowSubMenu, s
     )
 }
 
-function Indicator({category, indicator, depth, indicators, setSelectedIndicator, setShowSubMenu, setShowCategorySubMenu}:any) {
+function Indicator({category, indicator, indicators, setSelectedIndicator, setShowSubMenu, setShowCategorySubMenu}:IndicatorSelectorProps) {
     
     function selectIndicator() {
-        setSelectedIndicator([indicator,indicators[category][indicator]]);
-        setShowSubMenu(false);
-        setShowCategorySubMenu('');
+        if (indicators && category && indicator) {
+            setSelectedIndicator!([indicator,indicators[category][indicator]]);
+            setShowSubMenu!(false);
+            setShowCategorySubMenu!('');
+        }
     }
 
     return (
