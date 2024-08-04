@@ -58,24 +58,38 @@ export default function Map() {
 function IndicatorSelector({setSelectedIndicator}:any) {
     const [indicators,setIndicators] = useState<IndicatorsInterface>(WorldBankIndicators);
     const [showSubMenu,setShowSubMenu] = useState(false);
+    const [showCategorySubMenu,setShowCategorySubMenu] = useState('');
     
 
-    function handleClick() {
-        setShowSubMenu(!showSubMenu);
+    function handleMouseEnter() {
+        setShowSubMenu(true);
     }
+
+    function handleMouseLeave() {
+        setShowSubMenu(false);
+    }
+        
     return (
         <>
         <nav>
             <ul>
-                <li className="relative z-50">
-                    <button type="button" onClick={handleClick}>
+                <li className="relative z-50" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                    <button type="button" >
                         Indicators
                     </button>
                     {showSubMenu && (
                     <ul className="absolute bg-slate-50 rounded shadow-md shadow-slate-500">
                         { Object.keys(indicators).map((category,index) => (
                             <>
-                            <Category key={index} category={category} indicators={indicators} setSelectedIndicator={setSelectedIndicator} />   
+                            <Category 
+                                key={index} 
+                                category={category} 
+                                indicators={indicators} 
+                                setSelectedIndicator={setSelectedIndicator}
+                                setShowSubMenu={setShowSubMenu}
+                                showCategorySubMenu={showCategorySubMenu}
+                                setShowCategorySubMenu={setShowCategorySubMenu}
+                            />   
                             </>
                         ))}
                     </ul>
@@ -87,47 +101,66 @@ function IndicatorSelector({setSelectedIndicator}:any) {
     )
 }
 
-function Category({category, indicators, setSelectedIndicator}:any) {
-    const [showSubMenu,setShowSubMenu] = useState(false);
-    const level = 0;
+function Category({category, indicators, setSelectedIndicator, setShowSubMenu, showCategorySubMenu, setShowCategorySubMenu}:any) {
+    const subMenuRef = useRef<string>('');
 
-    function handleClick() {
-        setShowSubMenu(!showSubMenu);
+    function handleMouseEnter() {
+        setShowCategorySubMenu(category);
     }
+
+    function handleMouseLeave() {
+        if(subMenuRef.current===category) {
+            return
+        } else {
+            if (showCategorySubMenu===category) {
+                setShowCategorySubMenu('');
+            }
+        }
+        
+    }
+    
 
     return (
         <>
-        <li>
+        <li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="relative inline-block min-w-48 ">
             
-                <button type="button" onClick={handleClick} >
+                <button type="button" className="w-full text-start hover:bg-slate-200" >
                     {category} <span>&#8594;</span>
                 </button>
             
-            {showSubMenu && (
-                            <ul className="absolute align-top left-full min-w-48 bg-slate-50 rounded z-50 shadow-md shadow-slate-500 ml-0.5">
+            {showCategorySubMenu===category && (
+                            <ul onMouseEnter={() => subMenuRef.current=category} onMouseLeave={() => subMenuRef.current=''} className="absolute top-0 left-full min-w-48 bg-slate-50 rounded z-50 shadow-md shadow-slate-500">
                                 {Object.keys(indicators[category]).map((indicator,index) => (
-                                    <Indicator key={index} category={category} indicator={indicator} depth={level} indicators={indicators} setSelectedIndicator={setSelectedIndicator} />
+                                    <Indicator 
+                                        key={index} 
+                                        category={category} 
+                                        indicator={indicator}  
+                                        indicators={indicators} 
+                                        setSelectedIndicator={setSelectedIndicator}
+                                        setShowSubMenu={setShowSubMenu} 
+                                        setShowCategorySubMenu={setShowCategorySubMenu}
+                                    />
                                 ))}
                             </ul>
                 )}
-            </div>
+                </div>
         </li>
         </>
     )
-
 }
 
-function Indicator({category, indicator, depth, indicators, setSelectedIndicator}:any) {
-    const level = depth + 1;
-
+function Indicator({category, indicator, depth, indicators, setSelectedIndicator, setShowSubMenu, setShowCategorySubMenu}:any) {
+    
     function selectIndicator() {
         setSelectedIndicator([indicator,indicators[category][indicator]]);
+        setShowSubMenu(false);
+        setShowCategorySubMenu('');
     }
 
     return (
         <>
-            <li className="whitespace-nowrap">
+            <li className="whitespace-nowrap hover:bg-slate-200">
                 <button onClick={selectIndicator}>{indicator}</button>
             </li>
         </>
